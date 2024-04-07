@@ -16,8 +16,9 @@ Configurations in FCL are defined within a `<config>` root element. Child elemen
 
 ```xml
 <config>
-    <databaseHost type="string">localhost</databaseHost>
-    <databasePort type="number">3306</databasePort>
+    <key type="TYPE">
+        <!-- embedded data -->
+    </key>
 </config>
 ```
 
@@ -32,38 +33,43 @@ FCL supports a wide range of data types, including
 - object
 - array
 
-### Data Type Examples
+By default, types can be omitted and are inferred
+
+### Data Type And Automatic Inference Examples
 
 #### String and Number
 
 ```xml
 <config>
-    <username type="text">JohnDoe</username>
+    <username>JohnDoe</username>
     <age type="number">30</age>
 </config>
 ```
+the type of `username` is `text`
 
 #### Object
 
 ```xml
 <config>
-    <userInfo type="object">
-        <name type="text">John Doe</name>
+    <userInfo>
+        <name>John Doe</name>
         <age type="number">30</age>
     </userInfo>
 </config>
 ```
+the type of `userInfo` is `object` and `name` is `text`
 
 #### Array
 
 ```xml
 <config>
-    <usernames type="array">
-        <item type="text">User1</item>
-        <item type="text">User2</item>
+    <usernames>
+        <>User1</>
+        <>User2</>
     </usernames>
 </config>
 ```
+type of `usernames` is `array`
 
 #### Embedded JSON and YAML
 
