@@ -10,13 +10,13 @@ FCL streamlines configuration file creation and management, offering direct use 
 
 ## Document Structure
 
-Configurations in FCL are defined within a `<config>` root element. Child elements represent individual configuration entries, leveraging the key as the tag name for direct access and clarity.
+Configurations in FCL are defined within a `<config>` root element. Child elements represent individual configuration entries, leveraging the key as the tag name for direct access and clarity. Mark its mime type via `fcl:type`
 
 ### Basic Structure Example
 
 ```xml
 <config>
-    <key type="TYPE">
+    <key fcl:type="TYPE">
         <!-- embedded data -->
     </key>
 </config>
@@ -53,7 +53,7 @@ the type of `username` is `text`
 <config>
     <userInfo>
         <name>John Doe</name>
-        <age type="number">30</age>
+        <age fcl:type="number">30</age>
     </userInfo>
 </config>
 ```
@@ -75,13 +75,13 @@ type of `usernames` is `array`
 
 ```xml
 <config>
-    <userProfile type="text/json">
+    <userProfile fcl:type="text/json">
         {
             "name": "Jane Doe",
             "age": 29
         }
     </userProfile>
-    <projectConfig type="text/yaml">
+    <projectConfig fcl:type="text/yaml">
         name: Example Project
         version: 1.0
     </projectConfig>
