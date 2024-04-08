@@ -2,3 +2,4 @@
 .vscode/
 ./**/.idea/
 ./**/.vscode/
+./fcl-language-server/target/
