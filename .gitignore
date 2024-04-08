@@ -3,3 +3,7 @@
 ./**/.idea/
 ./**/.vscode/
 ./fcl-language-server/target/
+./fcl-language-server/target/**
+/target/
+/target
+target/
