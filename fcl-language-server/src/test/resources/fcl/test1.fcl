@@ -1,0 +1,15 @@
+<test>
+    <test1 fcl:type="text/json">
+        {
+"field": "src_plat",
+"value": "huya"
+}
+    </test1>
+    <test2 fcl:type="text/yaml">
+        field: src_plat
+        value: huya
+        spring:
+          profiles:
+            active: dev
+    </test2>
+</test>

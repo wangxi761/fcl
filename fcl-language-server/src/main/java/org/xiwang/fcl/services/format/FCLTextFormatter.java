@@ -40,7 +40,8 @@ public class FCLTextFormatter extends DOMTextFormatter {
 	}
 	
 	private void formatYamlText(DOMText textNode, XMLFormattingConstraints parentConstraints, int start, int end, List<TextEdit> edits) {
-		// Format YAML text
+		String formattedYaml = YamlFormatter.getInstance().format(textNode.getTextContent());
+		formatterDocument.createTextEditIfNeeded(textNode.getStart(), textNode.getEnd(), appendIndentSpaceToFormattedContent(formattedYaml, parentConstraints.getIndentLevel()), edits);
 	}
 	
 	private String appendIndentSpaceToFormattedContent(String formattedContent, int indentLevel) {

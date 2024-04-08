@@ -1,12 +1,12 @@
 package org.xiwang.fcl.services.format;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.SneakyThrows;
 
 public class JsonFormatter {
-	private final Gson GSON;
+	private final ObjectMapper MAPPER;
 	private JsonFormatter() {
-		GSON = new GsonBuilder().setPrettyPrinting().create();
+		MAPPER = new ObjectMapper();
 	}
 	
 	private static class JsonFormatterHolder {
@@ -17,7 +17,8 @@ public class JsonFormatter {
 		return JsonFormatterHolder.INSTANCE;
 	}
 	
+	@SneakyThrows
 	public String format(String json) {
-		return GSON.toJson(GSON.fromJson(json, Object.class));
+		return MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(MAPPER.readTree(json));
 	}
 }
