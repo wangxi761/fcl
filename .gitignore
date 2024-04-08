@@ -1,5 +1,4 @@
 .idea
-.vscode
-./**/.idea
-./**/.vscode
-./fcl-language-server/target
+.vscode/
+./**/.idea/
+./**/.vscode/
