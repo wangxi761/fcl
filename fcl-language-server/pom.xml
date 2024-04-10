@@ -24,13 +24,13 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.30</version>
+            <version>1.18.32</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>5.10.1</version>
+            <version>5.10.2</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -44,6 +44,43 @@
             <version>2.17.0</version>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.12.0</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.5.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <filters>
+                                <filter>
+                                    <artifact>*:*</artifact>
+                                    <excludes>
+                                        <exclude>META-INF/*.SF</exclude>
+                                        <exclude>META-INF/*.DSA</exclude>
+                                        <exclude>META-INF/*.RSA</exclude>
+                                        <exclude>META-INF/*.MF</exclude>
+                                        <exclude>META-INF/maven/**</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
     <dependencyManagement>
         <dependencies>
@@ -64,6 +101,10 @@
         <repository>
             <id>eclipse-lemminx</id>
             <url>https://repo.eclipse.org/content/repositories/lemminx-releases/</url>
+        </repository>
+        <repository>
+            <id>central</id>
+            <url>https://repo.maven.apache.org/maven2/</url>
         </repository>
     </repositories>
 </project>
