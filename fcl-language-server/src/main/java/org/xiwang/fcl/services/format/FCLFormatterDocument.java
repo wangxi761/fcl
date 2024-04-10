@@ -27,11 +27,14 @@ public class FCLFormatterDocument extends XMLFormatterDocument {
 	
 	private final TextDocument textDocument;
 	
+	private final SharedSettings sharedSettings;
+	
 	@SneakyThrows
 	public FCLFormatterDocument(DOMDocument xmlDocument, Range range, SharedSettings sharedSettings, Collection<IFormatterParticipant> formatterParticipants) {
 		super(xmlDocument, range, sharedSettings, formatterParticipants);
-		textDocument = xmlDocument.getTextDocument();
-		textFormatter = new FCLTextFormatter(this);
+		this.textDocument = xmlDocument.getTextDocument();
+		this.textFormatter = new FCLTextFormatter(this);
+		this.sharedSettings = sharedSettings;
 	}
 	
 	@Override
@@ -63,5 +66,8 @@ public class FCLFormatterDocument extends XMLFormatterDocument {
 		}
 	}
 	
+	public int getTabSize() {
+		return sharedSettings.getFormattingSettings().getTabSize();
+	}
 	
 }
