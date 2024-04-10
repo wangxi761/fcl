@@ -95,6 +95,7 @@ FCL is designed for seamless integration with IDEs, offering:
 - **Syntax Highlighting**: Tailored for a wide array of data types including embedded JSON and YAML.
 - **Auto-Completion and IntelliSense**: Offers suggestions based on the scope, enhancing editing efficiency.
 - **Formatting**: Applies data type-specific formatting rules for a uniform and readable configuration file.
+  ![demo](./doc/assets/fcl_demo.gif)
 - **Hover Information and Diagnostics**: Provides detailed tooltips and validates configurations in real-time.
 
 ## Security Considerations
