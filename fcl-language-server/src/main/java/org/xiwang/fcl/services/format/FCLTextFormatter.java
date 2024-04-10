@@ -46,8 +46,16 @@ public class FCLTextFormatter extends DOMTextFormatter {
 	
 	private String appendIndentSpaceToFormattedContent(String formattedContent, int indentLevel) {
 		String indentFormattedContent = Arrays.stream(formattedContent.split("\n"))
-		                                      .map(line -> " ".repeat(formatterDocument.getTabSize()).repeat(indentLevel) + line)
+		                                      .map(line -> generateIdent(indentLevel) + line)
 		                                      .collect(Collectors.joining("\n"));
-		return "\n%s\n%s".formatted(indentFormattedContent, " ".repeat((indentLevel - 1) * formatterDocument.getTabSize()));
+		return "\n%s\n%s".formatted(indentFormattedContent, generateIdent(indentLevel - 1));
+	}
+	
+	private String generateIdent(int indentLevel) {
+		if (formatterDocument.isInsertSpaces()) {
+			return " ".repeat(formatterDocument.getTabSize()).repeat(indentLevel);
+		} else {
+			return "\t".repeat(indentLevel);
+		}
 	}
 }

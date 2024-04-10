@@ -70,4 +70,7 @@ public class FCLFormatterDocument extends XMLFormatterDocument {
 		return sharedSettings.getFormattingSettings().getTabSize();
 	}
 	
+	public boolean isInsertSpaces() {
+		return sharedSettings.getFormattingSettings().isInsertSpaces();
+	}
 }
