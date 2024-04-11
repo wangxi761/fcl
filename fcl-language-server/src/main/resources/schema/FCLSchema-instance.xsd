@@ -1,0 +1,15 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="https://github.com/wangxi761/fcl"
+           xmlns:fcl="https://github.com/wangxi761/fcl"
+           elementFormDefault="qualified">
+
+    <xs:simpleType name="typeValues">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="number"/>
+            <xs:enumeration value="string"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:attribute name="type" type="fcl:typeValues"/>
+
+</xs:schema>
