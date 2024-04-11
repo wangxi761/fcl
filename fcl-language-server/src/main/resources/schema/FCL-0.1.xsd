@@ -1,0 +1,27 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:fcl="https://github.com/wangxi761/fcl"
+    targetNamespace="https://github.com/wangxi761/fcl"
+    elementFormDefault="qualified"
+    attributeFormDefault="unqualified">
+
+    <xs:element name="config">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute ref="fcl:type" />
+        </xs:complexType>
+    </xs:element>
+
+
+    <xs:attribute name="type" type="fcl:TypeOptions" />
+
+    <xs:simpleType name="TypeOptions">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="text" />
+            <xs:enumeration value="text/json" />
+            <xs:enumeration value="text/yaml" />
+            <xs:enumeration value="number" />
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

@@ -57,6 +57,7 @@ public class FCLLanguageServer extends XMLLanguageServer {
 		xmlLanguageService.setValidationService(this);
 		
 		delayer = Executors.newScheduledThreadPool(1);
+		
 	}
 	
 	@Override
