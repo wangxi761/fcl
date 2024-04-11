@@ -14,6 +14,8 @@ import org.eclipse.lemminx.settings.SharedSettings;
 import org.eclipse.lsp4j.Range;
 import org.eclipse.lsp4j.TextEdit;
 import org.w3c.dom.Node;
+import org.xiwang.fcl.services.FCLConst;
+import org.xiwang.fcl.services.FCLType;
 
 import java.util.Collection;
 import java.util.List;
@@ -47,7 +49,7 @@ public class FCLFormatterDocument extends XMLFormatterDocument {
 		if (parentElement == null) {
 			return;
 		}
-		String attribute = parentElement.getAttribute(FCLType.FCL_TYPE_ATTR);
+		String attribute = parentElement.getAttribute(FCLConst.FCL_TYPE_ATTR);
 		if (attribute == null) {
 			return;
 		}

@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config xmlns="https://github.com/wangxi761/fcl"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:fcl="https://github.com/wangxi761/fcl"
-        xsi:schemaLocation="https://github.com/wangxi761/fcl ../../../main/resources/schema/FCL-0.1.xsd">
+    xmlns:fcl="https://github.com/wangxi761/fcl">
 
 
     <cases>
         <case>
-            <var fcl:type="text/json" lang=""/>
-            <var xsi:type="TypeOptions">text</var>
+            <var fcl:type="text/json" />
             <var xml:space="preserve">
                 d
                  g

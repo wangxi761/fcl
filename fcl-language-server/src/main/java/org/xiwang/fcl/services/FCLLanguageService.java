@@ -5,6 +5,7 @@ import org.eclipse.lemminx.services.XMLLanguageService;
 import org.eclipse.lemminx.settings.SharedSettings;
 import org.eclipse.lsp4j.Range;
 import org.eclipse.lsp4j.TextEdit;
+import org.xiwang.fcl.services.format.FCLFormatter;
 
 import java.util.List;
 

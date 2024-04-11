@@ -1,13 +1,10 @@
 package org.xiwang.fcl.services.format;
 
-import org.eclipse.lemminx.commons.TextDocument;
 import org.eclipse.lemminx.dom.DOMText;
 import org.eclipse.lemminx.services.format.DOMTextFormatter;
-import org.eclipse.lemminx.services.format.TextEditUtils;
-import org.eclipse.lemminx.services.format.XMLFormatterDocument;
 import org.eclipse.lemminx.services.format.XMLFormattingConstraints;
-import org.eclipse.lemminx.utils.JSONUtility;
 import org.eclipse.lsp4j.TextEdit;
+import org.xiwang.fcl.services.FCLType;
 
 import java.util.Arrays;
 import java.util.List;

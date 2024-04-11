@@ -1,16 +1,14 @@
-package org.xiwang.fcl.services;
+package org.xiwang.fcl.services.format;
 
 import com.google.common.collect.Lists;
 import org.eclipse.lemminx.commons.BadLocationException;
 import org.eclipse.lemminx.dom.DOMDocument;
 import org.eclipse.lemminx.services.extensions.XMLExtensionsRegistry;
 import org.eclipse.lemminx.services.extensions.format.IFormatterParticipant;
-import org.eclipse.lemminx.services.format.XMLFormatterDocument;
 import org.eclipse.lemminx.services.format.XMLFormatterDocumentOld;
 import org.eclipse.lemminx.settings.SharedSettings;
 import org.eclipse.lsp4j.Range;
 import org.eclipse.lsp4j.TextEdit;
-import org.xiwang.fcl.services.format.FCLFormatterDocument;
 
 import java.util.Collection;
 import java.util.List;

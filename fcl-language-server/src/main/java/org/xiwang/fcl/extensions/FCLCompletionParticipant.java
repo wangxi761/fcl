@@ -1,21 +1,28 @@
 package org.xiwang.fcl.extensions;
 
+import com.google.common.collect.Lists;
+import com.google.gson.JsonObject;
+import org.eclipse.lemminx.dom.DOMAttr;
 import org.eclipse.lemminx.dom.DOMDocument;
 import org.eclipse.lemminx.dom.DOMElement;
 import org.eclipse.lemminx.dom.DOMNode;
+import org.eclipse.lemminx.extensions.contentmodel.participants.completion.AttributeValueCompletionResolver;
+import org.eclipse.lemminx.extensions.contentmodel.utils.XMLGenerator;
+import org.eclipse.lemminx.services.data.DataEntryField;
 import org.eclipse.lemminx.services.extensions.completion.AttributeCompletionItem;
 import org.eclipse.lemminx.services.extensions.completion.ICompletionParticipant;
 import org.eclipse.lemminx.services.extensions.completion.ICompletionRequest;
 import org.eclipse.lemminx.services.extensions.completion.ICompletionResponse;
 import org.eclipse.lemminx.settings.SharedSettings;
 import org.eclipse.lemminx.utils.StringUtils;
-import org.eclipse.lsp4j.CompletionItem;
-import org.eclipse.lsp4j.MarkupContent;
-import org.eclipse.lsp4j.MarkupKind;
-import org.eclipse.lsp4j.Range;
+import org.eclipse.lsp4j.*;
 import org.eclipse.lsp4j.jsonrpc.CancelChecker;
+import org.eclipse.lsp4j.jsonrpc.messages.Either;
+import org.xiwang.fcl.services.FCLConst;
+import org.xiwang.fcl.services.FCLType;
 
-import java.util.Collection;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class FCLCompletionParticipant implements ICompletionParticipant {
 	
@@ -52,16 +59,38 @@ public class FCLCompletionParticipant implements ICompletionParticipant {
 		
 		boolean isSnippetsSupported = request.isCompletionSnippetsSupported();
 		if (inRootElement) {
-			if (!hasAttribute(elementAtOffset, "xmlns:fcl") && !response.hasAttribute("xmlns:fcl")) { // "xmlns" completion
-				createCompletionItem("xmlns:fcl", isSnippetsSupported, generateValue, editRange, null, null, null, response,
+			if (!hasAttribute(elementAtOffset, FCLConst.FCL_NAMESPACE) && !response.hasAttribute(FCLConst.FCL_NAMESPACE)) { // "xmlns" completion
+				createAttrCompletionItem(FCLConst.FCL_NAMESPACE, isSnippetsSupported, generateValue, editRange, null, null, null, response,
 					request.getSharedSettings());
 			}
+			return;
+		}
+		
+		if (!hasAttribute(elementAtOffset, FCLConst.FCL_TYPE_ATTR)) {
+			createAttrCompletionItem(FCLConst.FCL_TYPE_ATTR, isSnippetsSupported, generateValue, editRange, null, null, null, response,
+				request.getSharedSettings());
+			return;
 		}
 	}
 	
 	@Override
 	public void onAttributeValue(String valuePrefix, ICompletionRequest request, ICompletionResponse response, CancelChecker cancelChecker) throws Exception {
-	
+		DOMAttr currentAttribute = request.getCurrentAttribute();
+		if (currentAttribute == null) {
+			return;
+		}
+		Range editRange = request.getReplaceRange();
+		String attributeName = currentAttribute.getName();
+		switch (attributeName) {
+			case FCLConst.XMLNS, FCLConst.FCL_NAMESPACE -> {
+				List<String> backupList = Lists.newArrayList(FCLConst.FCL_NAMESPACE_URI);
+				createAttrValueCompletionItem(backupList, editRange, request, response, request.getSharedSettings());
+			}
+			case FCLConst.FCL_TYPE_ATTR -> {
+				List<String> backupList = Arrays.stream(FCLType.values()).map(FCLType::getMimeType).toList();
+				createAttrValueCompletionItem(backupList, editRange, request, response, request.getSharedSettings());
+			}
+		}
 	}
 	
 	@Override
@@ -69,9 +98,9 @@ public class FCLCompletionParticipant implements ICompletionParticipant {
 	
 	}
 	
-	private static void createCompletionItem(String attrName, boolean canSupportSnippet, boolean generateValue,
-	                                         Range editRange, String defaultValue, Collection<String> enumerationValues, String documentation,
-	                                         ICompletionResponse response, SharedSettings sharedSettings) {
+	private static void createAttrCompletionItem(String attrName, boolean canSupportSnippet, boolean generateValue,
+	                                             Range editRange, String defaultValue, Collection<String> enumerationValues, String documentation,
+	                                             ICompletionResponse response, SharedSettings sharedSettings) {
 		CompletionItem item = new AttributeCompletionItem(attrName, canSupportSnippet, editRange, generateValue,
 			defaultValue, enumerationValues, sharedSettings);
 		MarkupContent markup = new MarkupContent();
@@ -79,6 +108,24 @@ public class FCLCompletionParticipant implements ICompletionParticipant {
 		markup.setValue(StringUtils.getDefaultString(documentation));
 		item.setDocumentation(markup);
 		response.addCompletionItem(item);
+	}
+	
+	private static void createAttrValueCompletionItem(Collection<String> values, Range editRange, ICompletionRequest request, ICompletionResponse response, SharedSettings sharedSettings) {
+		for (String value : values) {
+			CompletionItem item = new CompletionItem();
+			item.setLabel(value);
+			item.setKind(CompletionItemKind.Value);
+			item.setTextEdit(Either.forLeft(new TextEdit(editRange, value)));
+			if (request.isResolveDocumentationSupported()) {
+				addResolveData(request, item, AttributeValueCompletionResolver.PARTICIPANT_ID);
+			}
+			response.addCompletionItem(item);
+		}
+	}
+	
+	private static void addResolveData(ICompletionRequest request, CompletionItem item, String participantId) {
+		JsonObject data = DataEntryField.createCompletionData(request, participantId);
+		item.setData(data);
 	}
 	
 	private static boolean hasAttribute(DOMElement root, String prefix, String suffix) {

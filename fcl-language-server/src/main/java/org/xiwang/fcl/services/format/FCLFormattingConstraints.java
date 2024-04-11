@@ -3,6 +3,7 @@ package org.xiwang.fcl.services.format;
 import lombok.Getter;
 import lombok.Setter;
 import org.eclipse.lemminx.services.format.XMLFormattingConstraints;
+import org.xiwang.fcl.services.FCLType;
 
 @Getter
 @Setter

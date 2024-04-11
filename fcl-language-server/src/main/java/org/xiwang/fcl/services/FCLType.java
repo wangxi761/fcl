@@ -1,4 +1,4 @@
-package org.xiwang.fcl.services.format;
+package org.xiwang.fcl.services;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,7 +16,6 @@ public enum FCLType {
 	ARRAY(6, "array"),
 	;
 	
-	public static final String FCL_TYPE_ATTR = "fcl:type";
 	
 	private final int code;
 	private final String mimeType;
