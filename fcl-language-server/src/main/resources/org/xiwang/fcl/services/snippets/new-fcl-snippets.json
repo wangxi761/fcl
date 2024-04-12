@@ -1,0 +1,16 @@
+{
+    "New FCL with DEFAULT NAMESPACE": {
+        "prefix": [
+            "fcl"
+        ],
+        "body": [
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>",
+            "<config xmlns=\"https://github.com/wangxi761/fcl\"",
+            "\txmlns:fcl=\"https://github.com/wangxi761/fcl\">",
+            "\t${0}",
+            "</config>"
+        ],
+        "label": "$description",
+        "description": "New FCL with DEFAULT NAMESPACE"
+    }
+}
