@@ -5,7 +5,13 @@
 
     <cases>
         <case>
-            <var fcl:type="text/json" />
+            <var fcl:type="text/json">
+                {
+                  "a" : {
+                    "b" : 1
+                  }
+                }
+            </var>
             <var xml:space="preserve">
                 d
                  g
