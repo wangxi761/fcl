@@ -11,5 +11,6 @@
         spring:
           profiles:
             active: dev
+            includes: db
     </test2>
 </test>
